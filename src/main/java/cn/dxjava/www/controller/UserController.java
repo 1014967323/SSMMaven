@@ -12,11 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import weibo4j.Users;
 import weibo4j.http.AccessToken;
 import weibo4j.model.User;
-import weibo4j.util.BareBonesBrowserLaunch;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("user/")
@@ -47,6 +45,19 @@ public class UserController {
             }else{
                 return "fail";
             }
+            // 从内存中查找user，如果找不到则在数据库中查找，再进行赋值
+            /*CUser u = null;// = (CUser) redisTemplate.opsForValue().get("login");
+            if(u == null){
+                u = userService.login(user);
+            }
+            if (u != null) {
+                this.landerUser = u;
+                request.getSession().setAttribute("lander", landerUser);
+
+                return "success";
+            }else{
+                return "fail";
+            }*/
         }
 
         return "yzmerror";

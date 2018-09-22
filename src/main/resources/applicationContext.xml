@@ -17,11 +17,17 @@
 
    <context:annotation-config />
 	<context:component-scan base-package="cn.dxjava.www.service" />
-	
-  <!-- 加载jdbc属性文件 -->
- 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:mysql.properties"></property>
-    </bean>
+
+	<!-- 加载jdbc,redis属性文件 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!--<property name="location" value="classpath:mysql.properties"></property>-->
+		<property name="locations">
+			<list>
+				<value>classpath*:mysql.properties</value>
+				<value>classpath*:redis.properties</value>
+			</list>
+		</property>
+	</bean>
  	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
 	
@@ -63,6 +69,44 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.dxjava.www.mapper"/>
 	</bean>
+
+	<!-- redis config start -->
+	<!-- 配置JedisPoolConfig实例 -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+
+	<!-- 配置JedisConnectionFactory -->
+	<bean id="jedisConnectionFactory"
+		  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<!-- <property name="password" value="${redis.pass}" /> -->
+		<property name="database" value="${redis.dbIndex}" />
+		<property name="poolConfig" ref="poolConfig" />
+	</bean>
+
+	<!-- 配置RedisTemplate -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+	</bean>
+
+	<!-- 配置RedisCacheManager -->
+	<bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+		<constructor-arg name="redisOperations" ref="redisTemplate" />
+		<property name="defaultExpiration" value="${redis.expiration}" />
+	</bean>
+
+	<!-- 配置RedisCacheConfig 构造注入 -->
+	<bean id="redisCacheConfig" class="cn.dxjava.www.util.RedisCacheConfig">
+		<constructor-arg ref="jedisConnectionFactory" />
+		<constructor-arg ref="redisTemplate" />
+		<constructor-arg ref="redisCacheManager" />
+	</bean>
+	<!-- redis config end -->
 
 	<!-- 添加事务管理器和事务注解扫描器-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>

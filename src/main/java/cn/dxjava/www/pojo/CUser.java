@@ -1,6 +1,8 @@
 package cn.dxjava.www.pojo;
 
-public class CUser {
+import java.io.Serializable;
+
+public class CUser implements Serializable{
     private int uid;
     private String uname;
     private String utel;
