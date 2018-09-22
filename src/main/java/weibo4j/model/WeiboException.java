@@ -49,7 +49,7 @@ public class WeiboException extends Exception {
         super(cause);
     }
     
-    public WeiboException(String msg , int statusCode) throws JSONException {
+    public WeiboException(String msg , int statusCode) {
     	super(msg);
     	this.statusCode = statusCode;
     }

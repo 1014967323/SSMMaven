@@ -78,10 +78,8 @@ public class School extends WeiboResponse {
 		if (getClass() != obj.getClass())
 			return false;
 		School other = (School) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+        return id == other.id;
+    }
 
 	@Override
 	public String toString() {

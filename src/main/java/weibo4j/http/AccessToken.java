@@ -32,7 +32,7 @@ public class AccessToken extends WeiboResponse implements Serializable {
 			throw new WeiboException(je.getMessage() + ":" + json.toString(), je);
 		}
 	}
-	AccessToken(String res) throws WeiboException,JSONException{
+	AccessToken(String res) throws JSONException{
 		super();
 		JSONObject json =new JSONObject(res);
 		accessToken = json.getString("access_token");
@@ -81,12 +81,9 @@ public class AccessToken extends WeiboResponse implements Serializable {
 		} else if (!expireIn.equals(other.expireIn))
 			return false;
 		if (refreshToken == null) {
-			if (other.refreshToken != null)
-				return false;
-		} else if (!refreshToken.equals(other.refreshToken))
-			return false;
-		return true;
-	}
+            return other.refreshToken == null;
+		} else return refreshToken.equals(other.refreshToken);
+    }
 	@Override
 	public String toString() {
 		return "AccessToken [" +

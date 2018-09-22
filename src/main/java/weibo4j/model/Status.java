@@ -103,7 +103,7 @@ public class Status extends WeiboResponse {
 	}
 
 
-	public Status(JSONObject json)throws WeiboException, JSONException{
+	public Status(JSONObject json)throws WeiboException {
 		constructJson(json);
 	}
 	public Status(String str) throws WeiboException, JSONException {
@@ -300,12 +300,9 @@ public class Status extends WeiboResponse {
 			return false;
 		Status other = (Status) obj;
 		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+            return other.id == null;
+		} else return id.equals(other.id);
+    }
 	@Override
 	public String toString() {
 		return "Status [user=" + user + ", idstr=" + idstr + ", createdAt="

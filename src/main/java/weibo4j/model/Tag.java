@@ -23,7 +23,7 @@ public class Tag extends WeiboResponse {
 	
 	private String weight;
 
-	public Tag(JSONObject json) throws WeiboException, JSONException {			
+	public Tag(JSONObject json) throws JSONException {
 			if (!json.getString("id").isEmpty()) {
 				id = json.getString("id"); 
 			}
@@ -38,7 +38,7 @@ public class Tag extends WeiboResponse {
 			}
 			weight= json.getString("weight");
 	}
-	public Tag(JSONObject json , Weibo weibo) throws WeiboException,JSONException {
+	public Tag(JSONObject json , Weibo weibo) throws JSONException {
 		System.out.println(json);
 		id = json.getString("id");
 		value = json.getString("count");
@@ -117,12 +117,9 @@ public class Tag extends WeiboResponse {
 		} else if (!id.equals(other.id))
 			return false;
 		if (value == null) {
-			if (other.value != null)
-				return false;
-		} else if (!value.equals(other.value))
-			return false;
-		return true;
-	}
+            return other.value == null;
+		} else return value.equals(other.value);
+    }
 
 	/**
 	 * @return the id

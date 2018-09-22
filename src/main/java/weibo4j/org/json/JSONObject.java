@@ -490,10 +490,9 @@ public class JSONObject {
      *
      * @param key   A key string.
      * @return      The object associated with the key.
-     * @throws   JSONException if the key is not found.
      */
     /*modify by sycheng allow return null*/
-    public Object get(String key) throws JSONException {
+    public Object get(String key) {
         return opt(key);
         /*if (o == null) {
             throw new JSONException("JSONObject[" + quote(key) +

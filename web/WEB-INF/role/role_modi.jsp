@@ -13,10 +13,10 @@
             // 修改角色及权限
             function showResult() {
                 var cb = $(":checkbox");
-                var rp = new Array();
+                var rp = [];
                 cb.each(function () {
                     if ($(this).prop("checked")) {
-                        var i = new Object();
+                        var i = {};
                         i.pname = $(this).attr("value");
                         i.rolename = $("#uprolename").val();
 

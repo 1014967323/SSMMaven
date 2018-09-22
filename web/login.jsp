@@ -34,7 +34,7 @@
 
                 } else {
 
-                    console.log($("#username").val())
+                    console.log($("#username").val());
                     $.ajax({
                         url: "user/UserLogin",
                         type: "post",

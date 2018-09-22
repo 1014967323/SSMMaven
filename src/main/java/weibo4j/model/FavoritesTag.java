@@ -22,7 +22,7 @@ public class FavoritesTag extends WeiboResponse {
 
 	private int count;           //该标签下收藏的微博数
 
-	public FavoritesTag(JSONObject json) throws WeiboException,JSONException {
+	public FavoritesTag(JSONObject json) throws JSONException {
 		id = json.getString("id");
 		tag = json.getString("tag");
 		if(!json.isNull("count"))
@@ -85,12 +85,9 @@ public class FavoritesTag extends WeiboResponse {
 			return false;
 		FavoritesTag other = (FavoritesTag) obj;
 		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+            return other.id == null;
+		} else return id.equals(other.id);
+    }
 
 
 	public String getId() {

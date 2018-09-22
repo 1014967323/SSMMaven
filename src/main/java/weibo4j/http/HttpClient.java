@@ -311,7 +311,7 @@ public class HttpClient implements java.io.Serializable {
 				int i = 0;
 				for (PostParameter entry : params) {
 					parts[i++] = new StringPart(entry.getName(),
-							(String) entry.getValue());
+							entry.getValue());
 				}
 				parts[parts.length - 1] = new ByteArrayPart(item.getContent(),
 						item.getName(), item.getContentType());
@@ -341,7 +341,7 @@ public class HttpClient implements java.io.Serializable {
 				int i = 0;
 				for (PostParameter entry : params) {
 					parts[i++] = new StringPart(entry.getName(),
-							(String) entry.getValue());
+							entry.getValue());
 				}
 			}
 			FilePart filePart = new FilePart(fileParamName, file.getName(),
@@ -440,8 +440,7 @@ public class HttpClient implements java.io.Serializable {
 		private byte[] mData;
 		private String mName;
 
-		public ByteArrayPart(byte[] data, String name, String type)
-				throws IOException {
+		public ByteArrayPart(byte[] data, String name, String type) {
 			super(name, type, "UTF-8", "binary");
 			mName = name;
 			mData = data;
@@ -451,7 +450,7 @@ public class HttpClient implements java.io.Serializable {
 			out.write(mData);
 		}
 
-		protected long lengthOfData() throws IOException {
+		protected long lengthOfData() {
 			return mData.length;
 		}
 

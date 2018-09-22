@@ -109,12 +109,9 @@ public class Favorites extends WeiboResponse {
 			return false;
 		Favorites other = (Favorites) obj;
 		if (favoritedTime == null) {
-			if (other.favoritedTime != null)
-				return false;
-		} else if (!favoritedTime.equals(other.favoritedTime))
-			return false;
-		return true;
-	}
+            return other.favoritedTime == null;
+		} else return favoritedTime.equals(other.favoritedTime);
+    }
 	@Override
 	public String toString() {
 		return "Favorites [" +

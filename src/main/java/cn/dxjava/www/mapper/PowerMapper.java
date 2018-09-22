@@ -11,17 +11,17 @@ import java.util.List;
 public interface PowerMapper {
 
     // 根据权限名查找 pid
-    public Role_Power findPidByPowerName(@Param("pname") String pname);
+    Role_Power findPidByPowerName(@Param("pname") String pname);
 
     // 插入角色
     @Insert("insert into role values(#{rolename})")
-    public int insertRole(@Param("rolename") String rolename);
+    int insertRole(@Param("rolename") String rolename);
 
     // 批量插入 角色  权限
-    public int insertRolePower(List<Role_Power> list);
+    int insertRolePower(List<Role_Power> list);
 
     // 根据角色名  删除权限
     @Delete("delete from role_power where rolename = #{rolename}")
-    public int deleteRolePower(@Param("rolename") String rolename);
+    int deleteRolePower(@Param("rolename") String rolename);
 
 }

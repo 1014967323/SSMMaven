@@ -23,7 +23,7 @@
             function resetPwd() {
                 var cb = $(":checkbox");
                 var b = false;
-                var uids = new Array();
+                var uids = [];
                 cb.each(function () {
                     if ($(this).prop("checked")) {
                         b = true;

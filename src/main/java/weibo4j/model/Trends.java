@@ -54,8 +54,7 @@ public class Trends extends WeiboResponse implements Comparable<Trends> {
 		return this.trendAt.compareTo(that.trendAt);
 	}
 
-	/* package */Trends(Response res, Date asOf, Date trendAt, Trend[] trends)
-			throws WeiboException {
+	/* package */Trends(Response res, Date asOf, Date trendAt, Trend[] trends) {
 		super(res);
 		this.asOf = asOf;
 		this.trendAt = trendAt;
@@ -159,11 +158,8 @@ public class Trends extends WeiboResponse implements Comparable<Trends> {
 		if (trendAt != null ? !trendAt.equals(trends1.trendAt)
 				: trends1.trendAt != null)
 			return false;
-		if (!Arrays.equals(trends, trends1.trends))
-			return false;
-
-		return true;
-	}
+        return Arrays.equals(trends, trends1.trends);
+    }
 
 	@Override
 	public int hashCode() {
